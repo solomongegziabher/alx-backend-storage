@@ -1,5 +1,4 @@
 -- Creates a trigger after order is made
-DROP TRIGGER IF EXISTS `item_order`;
-CREATE TRIGGER IF NOT EXISTS item_order AFTER INSERT ON `orders`
+CREATE TRIGGER decrease_q AFTER INSERT ON orders FOR EACH ROW
 -- updates every row that an order has been made to quantity = quantity - order
-FOR EACH ROW UPDATE `items` SET quantity = quantity - New.number WHERE name=New.item_name;
+UPDATE `items` SET quantity = quantity - New.number WHERE name=New.item_name;
